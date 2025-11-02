@@ -1,46 +1,85 @@
-# CIFAR-Denoise-Autoencoders
-Denoising Autoencoders (Residual, CNN, UNet) on CIFAR-10 dataset
+CIFAR-10 Denoising Autoencoders
 
-# CIFAR-Denoise-Autoencoders
+Denoising autoencoders implemented in TensorFlow/Keras to remove Gaussian noise from CIFAR-10 images.
+This repository provides Residual, CNN, and UNet autoencoder architectures with visualization of noisy vs denoised images.
 
-Denoising Autoencoders (Residual, CNN, UNet) implemented in TensorFlow/Keras on the CIFAR-10 dataset.  
-This project demonstrates image denoising using different autoencoder architectures.
+Features
 
-## Features
+Residual Autoencoder: Uses residual blocks for better feature learning.
 
-- Residual Autoencoder
-- CNN Autoencoder
-- UNet Autoencoder
-- Add Gaussian noise to CIFAR-10 images
-- Visualize original, noisy, and denoised images
+CNN Autoencoder: Simple convolutional autoencoder for fast experimentation.
 
-## Requirements
+UNet Autoencoder: Encoder-decoder with skip connections for high-quality denoising.
 
-```bash
+Add Gaussian noise to CIFAR-10 dataset for training and testing.
+
+Compare original, noisy, and denoised images side by side.
+
+Optional saving of denoised images.
+
+Dataset
+
+CIFAR-10: 60,000 32x32 color images in 10 classes.
+
+Loaded directly via tensorflow.keras.datasets.cifar10.
+
+Images are normalized to [0,1] and Gaussian noise is added for denoising.
+
+Requirements
+
+Create a virtual environment (optional but recommended):
+
+python -m venv venv
+source venv/bin/activate      # Linux / Mac
+venv\Scripts\activate         # Windows
+
+
+Install dependencies:
+
 pip install -r requirements.txt
+
+
+requirements.txt example:
+
+tensorflow>=2.10
+numpy
+matplotlib
 
 Usage
 
-Run the main Python script:
+Run the main script:
 
 python cifar_denoising_autoencoders.py
 
 
 This will:
 
-Load CIFAR-10 dataset
+Load and normalize CIFAR-10 images.
 
-Add Gaussian noise
+Add Gaussian noise.
 
-Train Residual Autoencoder
+Build and compile Residual, CNN, and UNet autoencoders.
 
-Plot original, noisy, and denoised images
+Train the Residual Autoencoder (can extend to others).
 
-Folder Structure
+Plot original, noisy, and denoised images.
+
+Results
+
+Original vs Noisy vs Denoised Images:
+Images are displayed in rows: top = original, middle = noisy, bottom = denoised.
+
+Optional: Save denoised images in results/ folder:
+
+os.makedirs("results", exist_ok=True)
+for i, img in enumerate(denoised):
+    plt.imsave(f"results/denoised_{i}.png", img)
+
+Project Structure
 CIFAR-Denoise-Autoencoders/
 │
-├── cifar_denoising_autoencoders.py   # Main code
-├── requirements.txt                  # Dependencies
-├── README.md                         # Project info
-├── .gitignore                        # Git ignore rules
-└── results/                          # Optional output folder
+├── cifar_denoising_autoencoders.py   # Main Python code
+├── requirements.txt                  # Python dependencies
+├── README.md                         # Project description
+├── .gitignore                        # Ignore unnecessary files
+└── results/                          # Folder to save denoised images
